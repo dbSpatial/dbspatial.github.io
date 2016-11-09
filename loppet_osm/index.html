@@ -22,7 +22,7 @@
         console.log('initial hash',typeof window.location.hash,window.location.hash);
         if (typeof window.location.hash == 'undefined' || window.location.hash=='') {
           console.log(window.location.hash);
-          window.location.hash='background=Mapbox&map=14/-93.32/44.98';
+          window.location.hash='background=Mapbox&map=15/-93.32/44.98';
           console.log(window.location.hash);
         }
             defaults={
@@ -32,14 +32,13 @@
                   "area"
               ],
               "line": [
-                  "bwcaw_portage",
+                  "loppet-path",
                   "category-path",
                   "category-road",
                   "category-water-line",
                   "line"
               ],
               "point": [
-                  "bwcaw_campsite",
                   "point"
               ],
               "vertex": [
@@ -65,23 +64,15 @@
                   ],
                   "terms_url": "http://www.mapbox.com/about/maps/",
                   "terms_text": "Terms & Feedback",
-                  "id": "SNF",
+                  "id": "MN",
                   "default": true
               }];
             Array.prototype.push.apply(imagery,iD.dataImagery);
-            //portage_preset={"geometry":["line"],"fields":"source","tags":{"highway":"footway"},"name":"Portage"};
-            //iD.data.presets.presets['portage']=portage_preset;
-            iD.dataPresets.presets['bwcaw_portage']={
+            iD.dataPresets.presets['loppet-path']={
               "geometry": ["line"],
-              "fields": ["source"],
-              "tags": { "highway":"path","portage": "yes", "sport":"canoe", "source":"USFS Data and Mapbox Satellite" },
-              "name": "BWCAW Portage"
-            };
-            iD.dataPresets.presets['bwcaw_campsite']={
-              "geometry": ["point"],
-              "fields": ["source"],
-              "tags": { "tourism":"camp_site","backcountry": "yes", "tents":"yes", "openfire":"yes", "maxtents":"*", "leisure":"firepit", "amenity":"toilets", "toilets:disposal":"pitlatrine",  "source":"USFS Data and Mapbox Satellite" },
-              "name": "BWCAW Campsite"
+              "fields": ["highway","piste","surface","source"],
+              "tags": { "highway":"path", "loppet":"yes" },
+              "name": "Loppet Path"
             };
             if (typeof iD == 'undefined' || !iD.Detect().support) {
                 document.getElementById('id-container').innerHTML = 'Sorry, your browser is not currently supported. Please use Potlatch 2 to edit the map.';
@@ -90,7 +81,7 @@
                 var id = iD.Context(window)
                   .presets(iD.dataPresets)
                   .imagery(imagery)
-                  .minEditableZoom(14);
+                  .minEditableZoom(15);
 
                 id.ui()(document.getElementById('id-container'));
             }
