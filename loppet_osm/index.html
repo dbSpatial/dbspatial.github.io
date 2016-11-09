@@ -55,7 +55,7 @@
                   "relation"
               ]
             };
-            iD.data.presets.defaults=defaults;
+            iD.dataPresets.presets.defaults=defaults;
             imagery=[{
                   "name": "SNF Trails and Campsites",
                   "type": "tms",
@@ -79,20 +79,20 @@
               "tags": { "highway":"path","portage": "yes", "sport":"canoe", "source":"USFS Data and Mapbox Satellite" },
               "name": "BWCAW Portage"
             };
-            iD.data.presets.presets['bwcaw_portage']=bwcaw_portage;
+            iD.dataPresets.presets.presets['bwcaw_portage']=bwcaw_portage;
             bwcaw_campsite={
               "geometry": ["point"],
               "fields": ["source"],
               "tags": { "tourism":"camp_site","backcountry": "yes", "tents":"yes", "openfire":"yes", "maxtents":"*", "leisure":"firepit", "amenity":"toilets", "toilets:disposal":"pitlatrine",  "source":"USFS Data and Mapbox Satellite" },
               "name": "BWCAW Campsite"
             };
-            iD.data.presets.presets['bwcaw_campsite']=bwcaw_campsite;
+            iD.dataPresets.presets.presets['bwcaw_campsite']=bwcaw_campsite;
             if (typeof iD == 'undefined') {
                 document.getElementById('id-container').innerHTML = 'Sorry, Internet Explorer is not currently supported. Please use Potlatch 2 to edit the map.';
                 document.getElementById('id-container').className = 'unsupported';
             } else {
                 var id = iD()
-                  .presets(iD.data.presets)
+                  .presets(iD.dataPresets.presets)
                   .imagery(imagery)
                   .taginfo(iD.taginfo())
                   .minEditableZoom(14);
