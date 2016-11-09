@@ -14,8 +14,6 @@
 
         <!--[if !IE]>-->
         <script src='https://openstreetmap.us/iD/master/iD.js'></script>
-        <script src='https://openstreetmap.us/iD/master/presets.js'></script>
-        <script src='https://openstreetmap.us/iD/master/imagery.js'></script>
         <!--<![endif]-->
     </head>
     <body>
@@ -55,7 +53,7 @@
                   "relation"
               ]
             };
-            iD.dataPresets.presets.defaults=defaults;
+            iD.dataPresets.defaults=defaults;
             imagery=[{
                   "name": "SNF Trails and Campsites",
                   "type": "tms",
@@ -73,32 +71,29 @@
             Array.prototype.push.apply(imagery,iD.data.imagery);
             //portage_preset={"geometry":["line"],"fields":"source","tags":{"highway":"footway"},"name":"Portage"};
             //iD.data.presets.presets['portage']=portage_preset;
-            bwcaw_portage={
+            iD.dataPresets.presets['bwcaw_portage']={
               "geometry": ["line"],
               "fields": ["source"],
               "tags": { "highway":"path","portage": "yes", "sport":"canoe", "source":"USFS Data and Mapbox Satellite" },
               "name": "BWCAW Portage"
             };
-            iD.dataPresets.presets.presets['bwcaw_portage']=bwcaw_portage;
-            bwcaw_campsite={
+            iD.dataPresets.presets['bwcaw_campsite']={
               "geometry": ["point"],
               "fields": ["source"],
               "tags": { "tourism":"camp_site","backcountry": "yes", "tents":"yes", "openfire":"yes", "maxtents":"*", "leisure":"firepit", "amenity":"toilets", "toilets:disposal":"pitlatrine",  "source":"USFS Data and Mapbox Satellite" },
               "name": "BWCAW Campsite"
             };
-            iD.dataPresets.presets.presets['bwcaw_campsite']=bwcaw_campsite;
-            if (typeof iD == 'undefined') {
-                document.getElementById('id-container').innerHTML = 'Sorry, Internet Explorer is not currently supported. Please use Potlatch 2 to edit the map.';
+            if (typeof iD == 'undefined' || !iD.Detect().support) {
+                document.getElementById('id-container').innerHTML = 'Sorry, your browser is not currently supported. Please use Potlatch 2 to edit the map.';
                 document.getElementById('id-container').className = 'unsupported';
             } else {
-                var id = iD()
-                  .presets(iD.dataPresets.presets)
+                var id = iD.Context(window)
+                  .presets(iD.dataPresets)
                   .imagery(imagery)
                   .taginfo(iD.taginfo())
                   .minEditableZoom(14);
 
-                d3.select('#id-container')
-                    .call(id.ui());
+                id.ui()(document.getElementById('id-container'));
             }
         </script>
     </body>
