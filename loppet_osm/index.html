@@ -68,9 +68,10 @@
                   "default": true
               }];
             Array.prototype.push.apply(imagery,iD.dataImagery);
+            //iD.dataPresets.fields['loppet-piste']
             iD.dataPresets.presets['loppet-path']={
               "geometry": ["line"],
-              "fields": ["highway","piste","surface","source"],
+              "fields": ["highway","surface","source"],
               "tags": { "highway":"path", "loppet":"yes" },
               "name": "Loppet Path"
             };
