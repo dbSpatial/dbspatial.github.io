@@ -32,7 +32,10 @@
                   "area"
               ],
               "line": [
-                  "loppet-path",
+                  "loppet-hiking",
+                  "loppet-mtb",
+                  "loppet-bike",
+                  "loppet-ski",
                   "category-path",
                   "category-road",
                   "category-water-line",
@@ -53,14 +56,44 @@
               ]
             };
             iD.dataPresets.defaults=defaults;
-            imagery=[{"name":"Strava Global Heat","type":"tms","template":"https://globalheat.strava.com/tiles/both/color4/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Global Heat","scaleExtent":[13,17],"sourcetag":"Strava Global Heat","default":"yes"},{"name":"Strava Cycling Heat","type":"tms","template":"https://globalheat.strava.com/tiles/cycling/color4/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Global Cycling Heat","scaleExtent":[13,17],"sourcetag":"Strava Cycling Heat","default":"no"},{"name":"Strava Running Heat","type":"tms","template":"https://globalheat.strava.com/tiles/running/color4/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Global Running Heat","scaleExtent":[13,17],"sourcetag":"Strava Running Heat","default":"no"},{"name":"Strava Heat masked by OSM","type":"tms","template":"https://gometry.strava.com/osm_mask/tiles/both/color2/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Heat masked by OSM (experimental layer)","scaleExtent":[15,17],"sourcetag":"Strava Heat OSM Mask","default":"no"}];
+            imagery=[
+                {"name":"Strava Global Heat","type":"tms","template":"https://globalheat.strava.com/tiles/both/color4/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Global Heat","scaleExtent":[13,17],"sourcetag":"Strava Global Heat","default":"yes"},
+                {"name":"Strava Cycling Heat","type":"tms","template":"https://globalheat.strava.com/tiles/cycling/color4/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Global Cycling Heat","scaleExtent":[13,17],"sourcetag":"Strava Cycling Heat","default":"no"},
+                {"name":"Strava Running Heat","type":"tms","template":"https://globalheat.strava.com/tiles/running/color4/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Global Running Heat","scaleExtent":[13,17],"sourcetag":"Strava Running Heat","default":"no"},
+                {"name":"Strava Heat masked by OSM","type":"tms","template":"https://gometry.strava.com/osm_mask/tiles/both/color2/{zoom}/{x}/{y}.png","overlay":true,"description":"Strava Heat masked by OSM (experimental layer)","scaleExtent":[15,17],"sourcetag":"Strava Heat OSM Mask","default":"no"},
+                {"name":"Hennepin Imagery","type":"tms","template":"http://vpn.dbspatial.com/mapproxy/tiles/henn/webmercator/{zoom}/{x}/{y}.png","overlay":false,"description":"Hennepin Imagery","scaleExtent":[12,20],"sourcetag":"Hennepin County","default":"yes"},
+                {"name":"Met Council 2016 Imagery","type":"tms","template":"http://vpn.dbspatial.com/mapproxy/tiles/met16/webmercator/{zoom}/{x}/{y}.png","overlay":false,"description":"Met Council 2016 Imagery","scaleExtent":[12,20],"sourcetag":"MNGeo","default":"yes"},
+                {"name":"Met Council 2016 CIR Imagery","type":"tms","template":"http://vpn.dbspatial.com/mapproxy/tiles/met16cir/webmercator/{zoom}/{x}/{y}.png","overlay":false,"description":"Met Council 2016 Imagery","scaleExtent":[12,20],"sourcetag":"MNGeo","default":"yes"}
+                ];
             Array.prototype.push.apply(imagery,iD.dataImagery);
             //iD.dataPresets.fields['loppet-piste']
-            iD.dataPresets.presets['loppet-path']={
+            iD.dataPresets.presets['loppet-hiking']={
               "geometry": ["line"],
-              "fields": ["highway","surface","piste/type","piste/difficulty","piste/grooming","oneway","lit","cycleway","source"],
-              "tags": { "highway":"path", "loppet":"yes" },
-              "name": "Loppet Path"
+              "fields": ["highway","oneway","source"],
+              "tags": { "highway":"footway", "loppet":"yes", "foot":"yes" },
+              "name": "Loppet Hiking/Running",
+              "terms": ['loppet']
+            };
+            iD.dataPresets.presets['loppet-bike']={
+              "geometry": ["line"],
+              "fields": ["highway","oneway","source"],
+              "tags": { "highway":"cycleway", "loppet":"yes" },
+              "name": "Loppet Paved Bike Path",
+              "terms": ['loppet']
+            };
+            iD.dataPresets.presets['loppet-mtb']={
+              "geometry": ["line"],
+              "fields": ["highway","oneway","source", "mtb/scale/imba", "mtb/scale/uphill"],
+              "tags": { "highway":"path", "loppet":"yes", "foot":"yes", "bicycle":"designated", "mtb:access":"Only when dry" , "oneway":"yes"},
+              "name": "Loppet Mountain Bike Path",
+              "terms": ['loppet']
+            };
+            iD.dataPresets.presets['loppet-ski']={
+              "geometry": ["line"],
+              "fields": ["highway","oneway","source", "piste/type", "piste/difficulty", "piste/grooming", "lit"],
+              "tags": { "highway":"path", "loppet":"yes", "oneway":"yes", "piste:type":"nordic" },
+              "name": "Loppet Ski Trail",
+              "terms": ['loppet']
             };
             if (typeof iD == 'undefined' || !iD.Detect().support) {
                 document.getElementById('id-container').innerHTML = 'Sorry, your browser is not currently supported. Please use Potlatch 2 to edit the map.';
