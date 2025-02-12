@@ -1,0 +1,29 @@
+{
+  "name": "cql2-wasm",
+  "type": "module",
+  "collaborators": [
+    "David Bitner <bitner@dbspatial.com>",
+    "Pete Gadomski <pete.gadomski@gmail.com>"
+  ],
+  "description": "WASM interface for Common Query Language (CQL2)",
+  "version": "0.3.3-alpha.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/developmentseed/cql2-rs"
+  },
+  "files": [
+    "cql2_wasm_bg.wasm",
+    "cql2_wasm.js",
+    "cql2_wasm.d.ts"
+  ],
+  "main": "cql2_wasm.js",
+  "homepage": "https://github.com/developmentseed/cql2-rs",
+  "types": "cql2_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ],
+  "keywords": [
+    "cql2"
+  ]
+}
